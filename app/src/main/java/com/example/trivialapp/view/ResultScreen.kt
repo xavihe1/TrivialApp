@@ -1,9 +1,16 @@
 package com.example.trivialapp.view
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -12,9 +19,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 
 @Composable
@@ -32,15 +41,10 @@ fun ResultScreen(navController: NavController) {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Cursive
         )
-        
-        Button(
-            onClick = {  },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Gray
-            )
-        ) {
-            Text(text = "Share")
+        Row {
+            Share(text = "Share")
         }
+        
         Button(
             onClick = { navController.navigate("MenuScreen") },
             colors = ButtonDefaults.buttonColors(
@@ -51,3 +55,23 @@ fun ResultScreen(navController: NavController) {
         }
     }
 }
+
+
+    @Composable
+    fun Share(text: String) {
+        val context = LocalContext.current
+
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, text)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+
+        Button(
+            onClick = { startActivity(context, shareIntent, null) },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+        ) {
+            Icon(imageVector = Icons.Default.Share, contentDescription = null)
+            Text(text = "Share")
+        }
+    }

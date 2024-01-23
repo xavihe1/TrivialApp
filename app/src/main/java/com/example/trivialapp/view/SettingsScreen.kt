@@ -1,5 +1,6 @@
 package com.example.trivialapp.view
 
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -74,6 +76,22 @@ fun SettingsScreen(navController: NavController, settingsViewModel: settingsView
         Row {
             Text(text = "Rounds")
 
+            RadioButton(
+                selected = settingsViewModel.rondas,
+                onClick = { rondas = !settingsViewModel.rondas },
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = Color.Blue,
+                    unselectedColor = Color.Gray
+                )
+            )
+            RadioButton(
+                selected = settingsViewModel.rondas,
+                onClick = { rondas = !settingsViewModel.rondas },
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = Color.Blue,
+                    unselectedColor = Color.Gray
+                )
+            )
             RadioButton(
                 selected = settingsViewModel.rondas,
                 onClick = { rondas = !settingsViewModel.rondas },

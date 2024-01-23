@@ -27,7 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
+import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewModel.MyViewModel
+import com.example.trivialapp.viewModel.settingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,29 +54,7 @@ fun MenuScreen(navController: NavController) {
             modifier = Modifier
                 .padding(20.dp)
         ){
-            OutlinedTextField(
-                value = selectedText,
-                onValueChange = { selectedText = it },
-                enabled = false,
-                readOnly = true,
-                modifier = Modifier
-                    .clickable { expanded = true }
-            )
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                difficulty.forEach { dificultat ->
-                    DropdownMenuItem(
-                        text = { Text(text = dificultat) },
-                        onClick = {
-                            expanded = false
-                            selectedText = dificultat
-                        })
-                }
-            }
+
         }
         Button(
             onClick = { navController.navigate("GameScreen") },
@@ -93,7 +73,7 @@ fun MenuScreen(navController: NavController) {
             var mostraDialog by remember { mutableStateOf(false) }
 
             Button(
-                onClick = { navController.navigate("SettingsScreen") },
+                onClick = { navController.navigate(Routes.Pantalla5.createRoute(settingsViewModel())) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray
                 )

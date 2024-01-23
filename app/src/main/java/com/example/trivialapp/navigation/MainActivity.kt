@@ -22,6 +22,7 @@ import com.example.trivialapp.view.MenuScreen
 import com.example.trivialapp.view.ResultScreen
 import com.example.trivialapp.view.SettingsScreen
 import com.example.trivialapp.viewModel.MyViewModel
+import com.example.trivialapp.viewModel.settingsViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -44,17 +45,15 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.Pantalla2.route) { MenuScreen(navigationController) }
                         composable(Routes.Pantalla3.route) { GameScreen(navigationController) }
                         composable(Routes.Pantalla4.route) { ResultScreen(navigationController) }
-                        /*
                         composable(
                             Routes.Pantalla5.route,
-                            arguments = listOf(navArgument("settingsViewModel") { type = NavType.settingsViewModelType })
+                            arguments = listOf(navArgument("settingsViewModel") { type = NavType.StringType })
                         ) { backStackEntry ->
                             SettingsScreen(
-                                navController = navigationController,
-                                settingsViewModel =
+                                navigationController,
+                                settingsViewModel()
                             )
                         }
-                        */
                     }
                 }
             }
