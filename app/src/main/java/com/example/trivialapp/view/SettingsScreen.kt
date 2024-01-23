@@ -76,30 +76,32 @@ fun SettingsScreen(navController: NavController, settingsViewModel: settingsView
         Row {
             Text(text = "Rounds")
 
-            RadioButton(
-                selected = settingsViewModel.rondas,
-                onClick = { rondas = !settingsViewModel.rondas },
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = Color.Blue,
-                    unselectedColor = Color.Gray
+            Column {
+                RadioButton(
+                    selected = settingsViewModel.rondas,
+                    onClick = { rondas = !settingsViewModel.rondas },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = Color.Blue,
+                        unselectedColor = Color.Gray
+                    )
                 )
-            )
-            RadioButton(
-                selected = settingsViewModel.rondas,
-                onClick = { rondas = !settingsViewModel.rondas },
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = Color.Blue,
-                    unselectedColor = Color.Gray
+                RadioButton(
+                    selected = settingsViewModel.rondas,
+                    onClick = { rondas = !settingsViewModel.rondas },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = Color.Blue,
+                        unselectedColor = Color.Gray
+                    )
                 )
-            )
-            RadioButton(
-                selected = settingsViewModel.rondas,
-                onClick = { rondas = !settingsViewModel.rondas },
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = Color.Blue,
-                    unselectedColor = Color.Gray
+                RadioButton(
+                    selected = settingsViewModel.rondas,
+                    onClick = { rondas = !settingsViewModel.rondas },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = Color.Blue,
+                        unselectedColor = Color.Gray
+                    )
                 )
-            )
+            }
         }
         Row {
             Text(text = "Time per round")
@@ -124,13 +126,16 @@ fun SettingsScreen(navController: NavController, settingsViewModel: settingsView
                 )
             )
         }
-        Button(
-            onClick = { navController.navigate("MenuScreen") },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Gray
-            )
-        ) {
-            Text(text = "Return to menu")
+        Row {
+            Button(
+                onClick = { navController.navigate("MenuScreen") },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Gray
+                )
+            ) {
+                Text(text = "Return to menu")
+            }
         }
+
     }
 }
