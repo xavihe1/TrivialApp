@@ -5,12 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
-class settingsViewModel: ViewModel() {
+class SettingsViewModel: ViewModel() {
     var difficulty = listOf("Easy", "Hard")
         private set
 
     var rondas by mutableStateOf(false)
-        private set
 
     var modoOscuro by mutableStateOf(true)
         private set

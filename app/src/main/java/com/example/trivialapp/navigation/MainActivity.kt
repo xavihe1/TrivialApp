@@ -22,7 +22,7 @@ import com.example.trivialapp.view.MenuScreen
 import com.example.trivialapp.view.ResultScreen
 import com.example.trivialapp.view.SettingsScreen
 import com.example.trivialapp.viewModel.MyViewModel
-import com.example.trivialapp.viewModel.settingsViewModel
+import com.example.trivialapp.viewModel.SettingsViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         ) { backStackEntry ->
                             SettingsScreen(
                                 navigationController,
-                                settingsViewModel()
+                                SettingsViewModel()
                             )
                         }
                     }

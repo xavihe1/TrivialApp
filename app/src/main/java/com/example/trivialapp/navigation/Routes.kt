@@ -1,6 +1,6 @@
 package com.example.trivialapp.navigation
 
-import com.example.trivialapp.viewModel.settingsViewModel
+import com.example.trivialapp.viewModel.SettingsViewModel
 
 sealed class Routes(val route: String) {
     object Pantalla1: Routes("LaunchScreen")
@@ -8,6 +8,6 @@ sealed class Routes(val route: String) {
     object Pantalla3: Routes("GameScreen")
     object Pantalla4: Routes("ResultScreen")
     object Pantalla5: Routes("SettingsScreen/{settingsViewModel}") {
-        fun createRoute(settingsViewModel: settingsViewModel) = "SettingsScreen/$settingsViewModel"
+        fun createRoute(settingsViewModel: SettingsViewModel) = "SettingsScreen/$settingsViewModel"
     }
 }

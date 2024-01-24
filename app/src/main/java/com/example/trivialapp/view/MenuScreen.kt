@@ -29,7 +29,7 @@ import androidx.navigation.NavController
 import com.example.trivialapp.R
 import com.example.trivialapp.navigation.Routes
 import com.example.trivialapp.viewModel.MyViewModel
-import com.example.trivialapp.viewModel.settingsViewModel
+import com.example.trivialapp.viewModel.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,7 +73,7 @@ fun MenuScreen(navController: NavController) {
             var mostraDialog by remember { mutableStateOf(false) }
 
             Button(
-                onClick = { navController.navigate(Routes.Pantalla5.createRoute(settingsViewModel())) },
+                onClick = { navController.navigate(Routes.Pantalla5.createRoute(SettingsViewModel())) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray
                 )

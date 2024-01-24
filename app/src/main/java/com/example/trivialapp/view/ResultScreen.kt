@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
@@ -41,11 +42,12 @@ fun ResultScreen(navController: NavController) {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Cursive
         )
-        Row {
+        Row(modifier = Modifier.padding(top = 50.dp)) {
             Share(text = "Share")
         }
         
         Button(
+            modifier = Modifier.padding(top = 30.dp),
             onClick = { navController.navigate("MenuScreen") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Gray
@@ -57,21 +59,21 @@ fun ResultScreen(navController: NavController) {
 }
 
 
-    @Composable
-    fun Share(text: String) {
-        val context = LocalContext.current
+@Composable
+fun Share(text: String) {
+    val context = LocalContext.current
 
-        val sendIntent = Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_TEXT, text)
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, null)
-
-        Button(
-            onClick = { startActivity(context, shareIntent, null) },
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
-        ) {
-            Icon(imageVector = Icons.Default.Share, contentDescription = null)
-            Text(text = "Share")
-        }
+    val sendIntent = Intent(Intent.ACTION_SEND).apply {
+        putExtra(Intent.EXTRA_TEXT, text)
+        type = "text/plain"
     }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+
+    Button(
+        onClick = { startActivity(context, shareIntent, null) },
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+    ) {
+        Icon(imageVector = Icons.Default.Share, contentDescription = null)
+        Text(text = "Share")
+    }
+}
