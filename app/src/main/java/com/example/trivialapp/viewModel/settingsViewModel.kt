@@ -9,10 +9,18 @@ class SettingsViewModel: ViewModel() {
     var difficulty = listOf("Easy", "Hard")
         private set
 
-    var rondas by mutableStateOf(false)
+    var rondas by mutableStateOf(0)
 
-    var modoOscuro by mutableStateOf(true)
-        private set
 
+    var modoOscuro by mutableStateOf(false)
+    fun botonModoOscuro(encendido: Boolean) {
+        modoOscuro = encendido
+    }
+
+
+    var totalDeRondas by mutableStateOf(0)
+    fun cambiarDeRonda(nuevaRonda: Int) {
+        totalDeRondas = nuevaRonda
+    }
 
 }

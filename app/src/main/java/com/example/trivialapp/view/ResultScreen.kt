@@ -18,27 +18,34 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
+import com.example.trivialapp.R
 
 @Composable
 fun ResultScreen(navController: NavController) {
     val puntuacio by remember { mutableStateOf(0) }
     
     Column(
-        modifier = Modifier,
+        modifier = Modifier
+            .paint(
+                painterResource(id = R.drawable.fondo_pantalla),
+                contentScale = ContentScale.FillBounds),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "Your score is $puntuacio",
-            fontSize = 70.sp,
+            fontSize = 60.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Cursive
         )

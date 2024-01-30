@@ -28,9 +28,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.trivialapp.R
 import com.example.trivialapp.viewModel.SettingsViewModel
 
 
@@ -42,10 +46,16 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
     var rondas by remember { mutableStateOf(false) }
     var sliderValue by remember { mutableStateOf(0f) }
     var finishValue by remember { mutableStateOf("") }
+    var selectedOption by remember { mutableStateOf(settingsViewModel.totalDeRondas) }
     var modoOscuro by remember { mutableStateOf(true) }
 
     Column(
-        modifier = Modifier.padding(top = 60.dp, start = 5.dp),
+        modifier = Modifier
+            .paint(
+                painterResource(id = R.drawable.fondo_pantalla),
+                contentScale = ContentScale.FillBounds
+            )
+            .padding(top = 60.dp, start = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -78,46 +88,33 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
                     }
                 }
             }
-        Row(modifier = Modifier.padding(35.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-Column {
-    Text(text = "Rounds: ", modifier = Modifier.padding(end = 130.dp))
-
-}
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                RadioButton(
-                    modifier = Modifier.padding(end = 300.dp),
-                    selected = settingsViewModel.rondas,
-                    onClick = { rondas = !settingsViewModel.rondas },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = Color.Blue,
-                        unselectedColor = Color.Gray
-                    )
-                )
-                RadioButton(
-                    modifier = Modifier.padding(end = 300.dp),
-                    selected = settingsViewModel.rondas,
-                    onClick = { rondas = !settingsViewModel.rondas },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = Color.Blue,
-                        unselectedColor = Color.Gray
-                    )
-                )
-                RadioButton(
-                    modifier = Modifier.padding(end = 300.dp),
-                    selected = settingsViewModel.rondas,
-                    onClick = { rondas = !settingsViewModel.rondas },
-                    colors = RadioButtonDefaults.colors(
-                        selectedColor = Color.Blue,
-                        unselectedColor = Color.Gray
-                    )
-                )
+                Text(text = "Rounds: ")
+                Column() {
+                    val numRondas = listOf("5, 10, 15")
+                    numRondas.forEach {label ->
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            RadioButton(
+                                selected = selectedOption.toString() == label,
+                                onClick = {
+                                    selectedOption = label.toInt()
+                                    settingsViewModel.cambiarDeRonda(selectedOption) },
+                                colors = RadioButtonDefaults.colors(
+                                    selectedColor = Color.Blue,
+                                    unselectedColor = Color.Gray
+                                )
+                            )
+                            Text(text = label)
+                        }
+                    }
+                }
             }
-        }
         Row(modifier = Modifier.padding(35.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -133,7 +130,7 @@ Column {
                     activeTickColor = Color.Transparent,
                     inactiveTickColor = Color.Transparent)
             )
-            Text(text = finishValue)
+
         }
         Row(modifier = Modifier.padding(35.dp),
             horizontalArrangement = Arrangement.SpaceBetween
