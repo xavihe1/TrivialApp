@@ -69,18 +69,16 @@ fun ResultScreen(navController: NavController) {
 @Composable
 fun Share(text: String) {
     val context = LocalContext.current
-
     val sendIntent = Intent(Intent.ACTION_SEND).apply {
         putExtra(Intent.EXTRA_TEXT, text)
         type = "text/plain"
     }
     val shareIntent = Intent.createChooser(sendIntent, null)
-
     Button(
         onClick = { startActivity(context, shareIntent, null) },
         colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
     ) {
-        Icon(imageVector = Icons.Default.Share, contentDescription = null)
+        Icon(imageVector = Icons.Default.Share, contentDescription = "Share")
         Text(text = "Share")
     }
 }

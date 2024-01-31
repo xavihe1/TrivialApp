@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,17 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
 import com.example.trivialapp.viewModel.MyViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun GameScreen(navController: NavController) {
-    var round by remember { mutableStateOf(0) }
+    var round by rememberSaveable { mutableStateOf(0) }
     var progressStatus by rememberSaveable() { mutableStateOf(0f) }
     Column(
         modifier = Modifier
             .fillMaxSize()
             .paint(
                 painterResource(id = R.drawable.fondo_pantalla),
-                contentScale = ContentScale.FillBounds)
+                contentScale = ContentScale.FillBounds
+            )
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
@@ -82,7 +86,36 @@ fun GameScreen(navController: NavController) {
                 Text(text = "Answer 4")
             }
         }
+        Row {
+          countDownTimer()
+        }
+    }
+}
 
-        LinearProgressIndicator(progress = progressStatus, modifier = Modifier.padding(top = 40.dp))
+@Composable
+fun countDownTimer() {
+    var timeLeft by rememberSaveable { mutableStateOf(15) }
+    LaunchedEffect(timeLeft) {
+        while (timeLeft > 0) {
+            delay(1000L)
+            timeLeft--
+        }
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(onClick = { timeLeft = 15 }) {
+                Text(text = "Restart")
+            }
+        }
+        Text(text = "Time left: $timeLeft")
+        LinearProgressIndicator(progress = timeLeft.toFloat() / 15f)
     }
 }

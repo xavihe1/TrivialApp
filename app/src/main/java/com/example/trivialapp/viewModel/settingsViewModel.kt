@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 
 class SettingsViewModel: ViewModel() {
-    var difficulty = listOf("Easy", "Hard")
-        private set
+    var difficulty = listOf("Easy", "Normal", "Hard")
+
 
     var rondas by mutableStateOf(0)
 

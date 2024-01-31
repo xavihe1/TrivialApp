@@ -92,10 +92,10 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Rounds: ")
+                Text(text = "Rounds: ", modifier = Modifier.padding(end = 75.dp))
                 Column() {
-                    val numRondas = listOf("5, 10, 15")
-                    numRondas.forEach {label ->
+                    val numRondas = listOf("5", "10", "15")
+                    numRondas.forEach { label ->
                         Row(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
@@ -146,7 +146,7 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
                 )
             )
         }
-        Row(modifier = Modifier.padding(35.dp),
+        Row(modifier = Modifier.padding(50.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Button(
