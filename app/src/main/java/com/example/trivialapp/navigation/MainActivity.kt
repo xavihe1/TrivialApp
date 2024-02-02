@@ -29,7 +29,6 @@ val settingsViewModel = SettingsViewModel()
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val myViewModel by viewModels<MyViewModel>()
         setContent {
             TrivialAppTheme(false) {
                 // A surface container using the 'background' color from the theme

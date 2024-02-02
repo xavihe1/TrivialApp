@@ -32,7 +32,7 @@ import com.example.trivialapp.R
 import com.example.trivialapp.viewModel.SettingsViewModel
 
 @Composable
-fun ResultScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
+fun ResultScreen(navController: NavController, SettingsViewModel: SettingsViewModel) {
     val puntuacio by remember { mutableIntStateOf(0) }
     
     Column(
