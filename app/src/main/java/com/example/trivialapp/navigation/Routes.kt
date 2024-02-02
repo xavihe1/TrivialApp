@@ -7,7 +7,5 @@ sealed class Routes(val route: String) {
     object Pantalla2: Routes("MenuScreen")
     object Pantalla3: Routes("GameScreen")
     object Pantalla4: Routes("ResultScreen")
-    object Pantalla5: Routes("SettingsScreen/{settingsViewModel}") {
-        fun createRoute(settingsViewModel: SettingsViewModel) = "SettingsScreen/$settingsViewModel"
-    }
+    object Pantalla5: Routes("SettingsScreen")
 }

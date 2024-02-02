@@ -13,8 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -22,18 +21,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.trivialapp.R
-import com.example.trivialapp.viewModel.MyViewModel
+import com.example.trivialapp.viewModel.SettingsViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun GameScreen(navController: NavController) {
-    var round by rememberSaveable { mutableStateOf(0) }
-    var progressStatus by rememberSaveable() { mutableStateOf(0f) }
+fun GameScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
+
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,18 +44,24 @@ fun GameScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Text(text = "Round $round/10", modifier = Modifier.padding(60.dp))
+        Text(text = "Round ${settingsViewModel.round}/${settingsViewModel.rondas}", modifier = Modifier.padding(60.dp))
 
-        Text(text = "La pregunta va aqui", modifier = Modifier.padding(top = 80.dp))
+        Text(
+            text = settingsViewModel.preguntaActual.preguntes,
+            modifier = Modifier
+                .padding(top = 80.dp)
+        )
 
         Row(modifier = Modifier.padding(top = 90.dp)) {
             Button(
-                onClick = {  },
+                onClick = {
+
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Blue),
                 modifier = Modifier.padding(end = 5.dp)
             ) {
-                Text(text = "Answer 1")
+                Text(text = settingsViewModel.preguntaActual.opcioA)
             }
             Button(
                 onClick = {  },
@@ -64,7 +69,7 @@ fun GameScreen(navController: NavController) {
                     containerColor = Color.Blue),
                 modifier = Modifier.padding(start = 5.dp)
             ) {
-                Text(text = "Answer 2")
+                Text(text = settingsViewModel.preguntaActual.opcioB)
             }
         }
 
@@ -75,7 +80,7 @@ fun GameScreen(navController: NavController) {
                     containerColor = Color.Blue),
                 modifier = Modifier.padding(end = 5.dp)
             ) {
-                Text(text = "Answer 3")
+                Text(text = settingsViewModel.preguntaActual.opcioC)
             }
             Button(
                 onClick = {  },
@@ -83,18 +88,20 @@ fun GameScreen(navController: NavController) {
                     containerColor = Color.Blue),
                 modifier = Modifier.padding(start = 5.dp)
             ) {
-                Text(text = "Answer 4")
+                Text(text = settingsViewModel.preguntaActual.opcioD)
             }
         }
-        Row {
-          countDownTimer()
+        Row(
+            modifier = Modifier
+                .padding(top = 70.dp)) {
+          CountDownTimer()
         }
     }
 }
 
 @Composable
-fun countDownTimer() {
-    var timeLeft by rememberSaveable { mutableStateOf(15) }
+fun CountDownTimer() {
+    var timeLeft by rememberSaveable { mutableIntStateOf(15) }
     LaunchedEffect(timeLeft) {
         while (timeLeft > 0) {
             delay(1000L)

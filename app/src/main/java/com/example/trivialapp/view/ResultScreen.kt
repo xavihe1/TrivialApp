@@ -1,6 +1,5 @@
 package com.example.trivialapp.view
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,10 +29,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import com.example.trivialapp.R
+import com.example.trivialapp.viewModel.SettingsViewModel
 
 @Composable
-fun ResultScreen(navController: NavController) {
-    val puntuacio by remember { mutableStateOf(0) }
+fun ResultScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
+    val puntuacio by remember { mutableIntStateOf(0) }
     
     Column(
         modifier = Modifier
@@ -57,7 +57,7 @@ fun ResultScreen(navController: NavController) {
             modifier = Modifier.padding(top = 30.dp),
             onClick = { navController.navigate("MenuScreen") },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Gray
+                containerColor = Color.DarkGray
             )
         ) {
             Text(text = "Return to menu")

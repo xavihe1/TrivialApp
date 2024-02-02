@@ -24,11 +24,12 @@ import com.example.trivialapp.view.SettingsScreen
 import com.example.trivialapp.viewModel.MyViewModel
 import com.example.trivialapp.viewModel.SettingsViewModel
 
+val settingsViewModel = SettingsViewModel()
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val MyViewModel by viewModels<MyViewModel>()
+        val myViewModel by viewModels<MyViewModel>()
         setContent {
             TrivialAppTheme(false) {
                 // A surface container using the 'background' color from the theme
@@ -43,17 +44,9 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Routes.Pantalla1.route) { LaunchScreen(navigationController) }
                         composable(Routes.Pantalla2.route) { MenuScreen(navigationController) }
-                        composable(Routes.Pantalla3.route) { GameScreen(navigationController) }
-                        composable(Routes.Pantalla4.route) { ResultScreen(navigationController) }
-                        composable(
-                            Routes.Pantalla5.route,
-                            arguments = listOf(navArgument("settingsViewModel") { type = NavType.StringType })
-                        ) { backStackEntry ->
-                            SettingsScreen(
-                                navigationController,
-                                SettingsViewModel()
-                            )
-                        }
+                        composable(Routes.Pantalla3.route) { GameScreen(navigationController, settingsViewModel) }
+                        composable(Routes.Pantalla4.route) { ResultScreen(navigationController, settingsViewModel) }
+                        composable(Routes.Pantalla5.route) { SettingsScreen(navigationController, settingsViewModel) }
                     }
                 }
             }

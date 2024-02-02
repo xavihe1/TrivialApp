@@ -1,6 +1,5 @@
 package com.example.trivialapp.view
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +11,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -24,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -41,13 +40,9 @@ import com.example.trivialapp.viewModel.SettingsViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavController, settingsViewModel: SettingsViewModel) {
-    var selectedText by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
-    var rondas by remember { mutableStateOf(false) }
-    var sliderValue by remember { mutableStateOf(0f) }
-    var finishValue by remember { mutableStateOf("") }
-    var selectedOption by remember { mutableStateOf(settingsViewModel.totalDeRondas) }
-    var modoOscuro by remember { mutableStateOf(true) }
+    val dificultades = listOf("Easy", "Normal", "Hard")
+    var selectedOption by remember { mutableIntStateOf(settingsViewModel.totalDeRondas) }
+    var modoOscuro by remember { mutableStateOf(settingsViewModel.modoOscuro) }
 
     Column(
         modifier = Modifier
@@ -65,25 +60,26 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
             Text(text = "Difficulty: ")
         
             OutlinedTextField(
-                value = selectedText,
-                onValueChange = { selectedText = it },
+                value = settingsViewModel.selectedText,
+                onValueChange = { settingsViewModel.selectedText = it },
                 enabled = false,
                 readOnly = true,
                 modifier = Modifier
-                    .clickable { expanded = true }
+                    .clickable { settingsViewModel.expanded = true }
             )
             DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
+                expanded = settingsViewModel.expanded,
+                onDismissRequest = { settingsViewModel.expanded = false },
                 modifier = Modifier
                     .fillMaxWidth()
             ) {
-                settingsViewModel.difficulty.forEach { dificultat ->
+                dificultades.forEach { dificultat ->
                     DropdownMenuItem(
                         text = { Text(text = dificultat) },
                         onClick = {
-                            expanded = false
-                            selectedText = dificultat
+                            settingsViewModel.expanded = false
+                            settingsViewModel.selectedText = dificultat
+                            settingsViewModel.cambiarDificultat(dificultat)
                         })
                     }
                 }
@@ -93,7 +89,7 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(text = "Rounds: ", modifier = Modifier.padding(end = 75.dp))
-                Column() {
+                Column {
                     val numRondas = listOf("5", "10", "15")
                     numRondas.forEach { label ->
                         Row(
@@ -121,9 +117,9 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
             Text(text = "Time per round: ")
 
             Slider(
-                value = sliderValue,
-                onValueChange = { sliderValue = it },
-                onValueChangeFinished = { finishValue = sliderValue.toString() },
+                value = settingsViewModel.sliderValue,
+                onValueChange = { settingsViewModel.sliderValue = it },
+                onValueChangeFinished = { settingsViewModel.finishValue = settingsViewModel.sliderValue.toString() },
                 valueRange = 0f..15f,
                 steps = 14,
                 colors = SliderDefaults.colors(
@@ -152,7 +148,7 @@ fun SettingsScreen(navController: NavController, settingsViewModel: SettingsView
             Button(
                 onClick = { navController.navigate("MenuScreen") },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Gray
+                    containerColor = Color.DarkGray
                 )
             ) {
                 Text(text = "Return to menu")
